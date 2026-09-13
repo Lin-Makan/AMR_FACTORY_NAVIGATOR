@@ -1,0 +1,23 @@
+# ROS 2 generated directories
+build/
+install/
+log/
+
+# Python generated files
+__pycache__/
+*.pyc
+*.pyo
+
+# Temporary/editor files
+*.swp
+*.swo
+
+# Old development backups
+*.backup
+*.backup_*
+*.before_*
+*.pre_*
+
+# Generated TF frame diagrams
+frames_*.gv
+frames_*.pdf

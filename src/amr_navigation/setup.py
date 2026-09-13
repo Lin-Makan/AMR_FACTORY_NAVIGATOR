@@ -1,0 +1,50 @@
+from setuptools import find_packages, setup
+from glob import glob
+import os
+
+package_name = 'amr_navigation'
+
+setup(
+    name=package_name,
+    version='0.0.0',
+    packages=find_packages(exclude=['test']),
+    data_files=[
+        (
+            'share/ament_index/resource_index/packages',
+            ['resource/' + package_name]
+        ),
+        (
+            'share/' + package_name,
+            ['package.xml']
+        ),
+        (
+            os.path.join('share', package_name, 'launch'),
+            glob('src/amr_navigation/launch/*.py')
+        ),
+        (
+            os.path.join('share', package_name, 'config'),
+            glob('src/amr_navigation/config/*.yaml')
+        ),
+        (
+            os.path.join('share', package_name, 'maps'),
+            glob('src/amr_navigation/maps/*')
+        ),
+    ],
+    install_requires=['setuptools'],
+    zip_safe=True,
+    maintainer='user',
+    maintainer_email='user@todo.todo',
+    description='AMR Factory Navigator autonomous navigation stack',
+    license='Apache-2.0',
+    extras_require={
+        'test': [
+            'pytest',
+        ],
+    },
+    entry_points={
+        'console_scripts': [
+            'obstacle_detector = amr_navigation.obstacle_detector_node:main',
+            'motion_controller = amr_navigation.motion_controller_node:main',
+        ],
+    },
+)
