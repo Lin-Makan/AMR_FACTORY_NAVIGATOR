@@ -10,34 +10,113 @@
 
     <visual>
       <material name="chassis_blue">
-        <color rgba="0.05 0.25 0.8 1.0"/>
+        <color rgba="0.06 0.22 0.62 1.0"/>
       </material>
-      <origin xyz="0 0 0.1"/>
+      <origin xyz="0 0 0.11"/>
       <geometry>
-        <box size="0.5 0.5 0.2"/>
+        <box size="0.78 0.58 0.22"/>
       </geometry>
-      <material name="chassis_blue">
-        <color rgba="0.12 0.30 0.55 1.0"/>
-      </material>
     </visual>
 
     <collision>
-      <origin xyz="0 0 0.1"/>
+      <origin xyz="0 0 0.11"/>
       <geometry>
-        <box size="0.5 0.5 0.2"/>
+        <box size="0.70 0.55 0.22"/>
       </geometry>
     </collision>
 
+
+    <!-- ========================= -->
+    <!-- VEHICLE BODY DETAILS -->
+    <!-- ========================= -->
+
+    <!-- Upper equipment deck -->
+    <visual>
+      <material name="upper_deck">
+        <color rgba="0.10 0.12 0.15 1.0"/>
+      </material>
+      <origin xyz="0 0 0.27"/>
+      <geometry>
+        <box size="0.62 0.48 0.10"/>
+      </geometry>
+    </visual>
+
+    <!-- Front bumper -->
+    <visual>
+      <material name="bumper_dark">
+        <color rgba="0.025 0.03 0.035 1.0"/>
+      </material>
+      <origin xyz="0.405 0 0.075"/>
+      <geometry>
+        <box size="0.055 0.54 0.11"/>
+      </geometry>
+    </visual>
+
+    <!-- Rear bumper -->
+    <visual>
+      <material name="bumper_dark">
+        <color rgba="0.025 0.03 0.035 1.0"/>
+      </material>
+      <origin xyz="-0.405 0 0.075"/>
+      <geometry>
+        <box size="0.055 0.54 0.11"/>
+      </geometry>
+    </visual>
+
+    <!-- Left side protection panel -->
+    <visual>
+      <material name="side_panel">
+        <color rgba="0.035 0.045 0.06 1.0"/>
+      </material>
+      <origin xyz="0 0.285 0.15"/>
+      <geometry>
+        <box size="0.68 0.035 0.14"/>
+      </geometry>
+    </visual>
+
+    <!-- Right side protection panel -->
+    <visual>
+      <material name="side_panel">
+        <color rgba="0.035 0.045 0.06 1.0"/>
+      </material>
+      <origin xyz="0 -0.285 0.15"/>
+      <geometry>
+        <box size="0.68 0.035 0.14"/>
+      </geometry>
+    </visual>
+
+    <!-- LiDAR mast -->
+    <visual>
+      <material name="mast_dark">
+        <color rgba="0.06 0.065 0.07 1.0"/>
+      </material>
+      <origin xyz="0 0 0.345"/>
+      <geometry>
+        <cylinder radius="0.035" length="0.14"/>
+      </geometry>
+    </visual>
+
+    <!-- Front identification panel -->
+    <visual>
+      <material name="front_panel">
+        <color rgba="0.02 0.025 0.03 1.0"/>
+      </material>
+      <origin xyz="0.395 0 0.17"/>
+      <geometry>
+        <box size="0.025 0.40 0.075"/>
+      </geometry>
+    </visual>
+
     <inertial>
-      <origin xyz="0 0 0"/>
+      <origin xyz="0 0 0.11"/>
       <mass value="10.0"/>
       <inertia
-        ixx="1.0"
+        ixx="0.288"
         ixy="0.0"
         ixz="0.0"
-        iyy="1.0"
+        iyy="0.449"
         iyz="0.0"
-        izz="1.0"/>
+        izz="0.688"/>
     </inertial>
 
   </link>
@@ -189,24 +268,25 @@
 
   <link name="lidar_link">
     <visual>
-      <material name="lidar_red">
-        <color rgba="0.9 0.05 0.05 1.0"/>
+      <material name="lidar_black">
+        <color rgba="0.04 0.04 0.04 1.0"/>
       </material>
       <origin xyz="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.04"/>
+        <cylinder radius="0.065" length="0.055"/>
       </geometry>
     </visual>
 
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.04"/>
+        <cylinder radius="0.065" length="0.055"/>
       </geometry>
     </collision>
 
     <inertial>
-      <mass value="0.1"/>
+      <origin xyz="0 0 0"/>
+      <mass value="0.10"/>
       <inertia
         ixx="0.0001"
         ixy="0.0"

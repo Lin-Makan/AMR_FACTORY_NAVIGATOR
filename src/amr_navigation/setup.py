@@ -19,15 +19,15 @@ setup(
         ),
         (
             os.path.join('share', package_name, 'launch'),
-            glob('src/amr_navigation/launch/*.py')
+            glob('launch/*.py')
         ),
         (
             os.path.join('share', package_name, 'config'),
-            glob('src/amr_navigation/config/*.yaml')
+            glob('config/*.yaml')
         ),
         (
             os.path.join('share', package_name, 'maps'),
-            glob('src/amr_navigation/maps/*')
+            glob('maps/*')
         ),
     ],
     install_requires=['setuptools'],

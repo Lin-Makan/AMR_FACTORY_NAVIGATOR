@@ -1,0 +1,34 @@
+required_ros_packages:
+  - nav2_amcl
+  - nav2_bringup
+  - navigation2
+  - nav2_lifecycle_manager
+  - slam_toolbox
+  - ros2_control
+  - ros2_controllers
+  - controller_manager
+  - diff_drive_controller
+  - gz_ros2_control
+  - diagnostic_updater
+  - rosbag2
+  - rosbag2_storage_mcap
+  - mcap_vendor
+
+required_project_packages:
+  - amr_bringup
+  - amr_description
+  - amr_hardware
+  - amr_interfaces
+  - amr_navigation
+
+required_project_files:
+  - src/amr_bringup/robots/robot.urdf
+  - src/amr_bringup/worlds/empty_world.sdf
+  - src/amr_bringup/launch/simulation.launch.py
+  - src/amr_bringup/config/controllers.yaml
+  - src/amr_bringup/config/slam_toolbox.yaml
+  - src/amr_bringup/config/nav2_localization_params.yaml
+  - src/amr_bringup/maps/factory_map.pgm
+  - src/amr_bringup/maps/factory_map.yaml
+  - src/amr_navigation/launch/navigation.launch.py
+  - src/amr_navigation/config/nav2_params.yaml

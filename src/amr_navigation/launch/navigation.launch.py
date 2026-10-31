@@ -5,37 +5,12 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    map_file = LaunchConfiguration("map")
     params_file = LaunchConfiguration("params_file")
 
     return LaunchDescription([
         DeclareLaunchArgument(
-            "map",
-            default_value="/home/user/ros2_ws/src/amr_navigation/maps/factory_map.yaml",
-        ),
-
-        DeclareLaunchArgument(
             "params_file",
             default_value="/home/user/ros2_ws/src/amr_navigation/config/nav2_params.yaml",
-        ),
-
-        Node(
-            package="nav2_map_server",
-            executable="map_server",
-            name="map_server",
-            output="screen",
-            parameters=[
-                params_file,
-                {"yaml_filename": map_file},
-            ],
-        ),
-
-        Node(
-            package="nav2_amcl",
-            executable="amcl",
-            name="amcl",
-            output="screen",
-            parameters=[params_file],
         ),
 
         Node(
@@ -53,6 +28,31 @@ def generate_launch_description():
             output="screen",
             parameters=[params_file],
             remappings=[
+                ("cmd_vel", "/cmd_vel_nav"),
+                ("odom", "/diff_drive_controller/odom"),
+            ],
+        ),
+
+        Node(
+            package="nav2_velocity_smoother",
+            executable="velocity_smoother",
+            name="velocity_smoother",
+            output="screen",
+            parameters=[params_file],
+            remappings=[
+                ("cmd_vel", "/cmd_vel_nav"),
+                ("cmd_vel_smoothed", "/cmd_vel_smoothed"),
+            ],
+        ),
+
+        Node(
+            package="nav2_collision_monitor",
+            executable="collision_monitor",
+            name="collision_monitor",
+            output="screen",
+            parameters=[params_file],
+            remappings=[
+                ("cmd_vel_smoothed", "/cmd_vel_smoothed"),
                 ("cmd_vel", "/diff_drive_controller/cmd_vel"),
             ],
         ),
@@ -91,10 +91,10 @@ def generate_launch_description():
                 {
                     "autostart": True,
                     "node_names": [
-                        "map_server",
-                        "amcl",
                         "planner_server",
                         "controller_server",
+                        "velocity_smoother",
+                        "collision_monitor",
                         "bt_navigator",
                         "behavior_server",
                         "waypoint_follower",

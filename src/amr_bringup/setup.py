@@ -1,3 +1,4 @@
+from glob import glob
 from setuptools import find_packages, setup
 
 package_name = 'amr_bringup'
@@ -29,7 +30,11 @@ setup(
         ),
         (
             'share/' + package_name + '/config',
-            ['config/controllers.yaml']
+            glob('config/*')
+        ),
+        (
+            'share/' + package_name + '/maps',
+            glob('maps/*')
         ),
     ],
     install_requires=['setuptools'],

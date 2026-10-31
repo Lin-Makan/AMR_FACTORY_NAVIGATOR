@@ -10,6 +10,11 @@ amcl:
     global_frame_id: "map"
     odom_frame_id: "odom"
     scan_topic: "/scan"
+    set_initial_pose: true
+    initial_pose:
+      x: 0.0
+      y: 0.0
+      yaw: 0.0
     laser_model_type: "likelihood_field"
     max_beams: 60
     min_particles: 500
@@ -43,6 +48,7 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
     controller_plugins: ["FollowPath"]
+
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       min_vel_x: 0.0
@@ -55,23 +61,18 @@ controller_server:
       acc_lim_theta: 1.0
       decel_lim_x: -1.0
       decel_lim_theta: -1.0
-      vx_samples: 10
-      vtheta_samples: 20
-      sim_time: 1.5
+      vx_samples: 5
+      vtheta_samples: 10
+      sim_time: 1.0
       xy_goal_tolerance: 0.15
       trans_stopped_velocity: 0.05
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      critics: ["BaseObstacle", "PathAlign", "PathDist", "GoalDist"]
+
       BaseObstacle.scale: 0.02
-      PathAlign.scale: 32.0
+      PathAlign.scale: 16.0
       PathAlign.forward_point_distance: 0.325
-      GoalAlign.scale: 24.0
-      GoalAlign.forward_point_distance: 0.325
-      PathDist.scale: 32.0
-      GoalDist.scale: 24.0
-      RotateToGoal.scale: 32.0
-      RotateToGoal.slowing_factor: 5.0
-      RotateToGoal.lookahead_time: -1.0
-      Oscillation.scale: 1.0
+      PathDist.scale: 16.0
+      GoalDist.scale: 16.0
 
 bt_navigator:
   ros__parameters:
@@ -97,7 +98,37 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: "OPEN_LOOP"
+    enable_stamped_cmd_vel: true
     max_velocity: [0.20, 0.0, 0.50]
     min_velocity: [-0.20, 0.0, -0.50]
     max_accel: [1.0, 0.0, 1.0]
     max_decel: [-1.0, 0.0, -1.0]
+
+collision_monitor:
+  ros__parameters:
+    base_frame_id: "base_link"
+    odom_frame_id: "odom"
+    cmd_vel_in_topic: "cmd_vel_smoothed"
+    cmd_vel_out_topic: "/diff_drive_controller/cmd_vel"
+    transform_tolerance: 0.5
+    source_timeout: 2.0
+    stop_pub_timeout: 1.0
+    enable_stamped_cmd_vel: true
+
+    polygons: ["PolygonStop"]
+
+    PolygonStop:
+      type: "circle"
+      radius: 0.30
+      action_type: "stop"
+      min_points: 4
+      visualize: true
+      polygon_pub_topic: "polygon_stop"
+
+    observation_sources: ["scan"]
+
+    scan:
+      type: "scan"
+      topic: "/scan"
+      source_timeout: 0.5
+      enabled: true

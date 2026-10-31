@@ -21,3 +21,18 @@ __pycache__/
 # Generated TF frame diagrams
 frames_*.gv
 frames_*.pdf
+
+# AMR runtime and recovery logs
+.amr_recovery_logs/
+logs/
+
+# Recorded MCAP data and archives (keep locally, not in normal Git commits)
+recordings/
+amr_factory_portfolio_mcap/
+*.mcap
+*.zip
+
+# Dated development backups
+*.bak
+*.bak.*
+*.v2bak

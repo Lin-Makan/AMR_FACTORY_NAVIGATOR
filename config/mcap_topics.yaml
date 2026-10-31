@@ -1,0 +1,11 @@
+topics:
+  - /scan
+  - /tf
+  - /tf_static
+  - /map
+  - /amcl_pose
+  - /diff_drive_controller/odom
+  - /joint_states
+  - /plan
+  - /plan_smoothed
+  - /clock

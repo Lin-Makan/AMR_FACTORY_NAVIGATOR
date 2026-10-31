@@ -25,10 +25,11 @@ def generate_launch_description():
 
     # Preserve the existing Gazebo system plugin path
     # and add the Gazebo GUI plugin path.
-    gz_system_plugin_path = os.environ.get(
-        "GZ_SIM_SYSTEM_PLUGIN_PATH",
-        "/opt/ros/jazzy/lib"
-    )
+    gz_system_plugin_path = os.pathsep.join(filter(None, [
+        "/opt/ros/jazzy/opt/gz_sim_vendor/lib/gz-sim-8/plugins",
+        os.environ.get("GZ_SIM_SYSTEM_PLUGIN_PATH", ""),
+        "/opt/ros/jazzy/lib",
+    ]))
 
     gz_gui_plugin_path = (
         "/opt/ros/jazzy/opt/gz_sim_vendor/lib/gz-sim-8/plugins/gui"
@@ -36,7 +37,7 @@ def generate_launch_description():
 
     # Start Gazebo Sim
     gazebo = ExecuteProcess(
-        cmd=["gz", "sim", world, "-r"],
+        cmd=["gz", "sim", world, "-s", "-r"],
         output="screen",
         additional_env={
             "GZ_SIM_SYSTEM_PLUGIN_PATH": gz_system_plugin_path,
